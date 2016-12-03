@@ -9,6 +9,11 @@ from nails.filesystem import File
 
 
 class TestFile(BaseTestCase):
+
+    def getcwd(self):
+        fname = __file__
+        return os.path.split(fname)[0]
+
     def test_file(self):
         fname = __file__
         name = os.path.basename(fname)
@@ -58,6 +63,32 @@ class TestFile(BaseTestCase):
         if f.exists:
             f.remove()
             self.assertFalse(f.exists)
+
+    def test_write(self):
+        fname = __file__
+        f = File(os.path.join(os.path.split(fname)[0], 'data/test.txt'))
+        f.write('行line')
+
+    def test_append(self):
+        fname = __file__
+        f = File(os.path.join(os.path.split(fname)[0], 'data/test.txt'))
+        f.append('一行line1\n')
+        f.append('line2\n')
+
+    def test_writelines(self):
+        fname = __file__
+        f = File(os.path.join(os.path.split(fname)[0], 'data/test.txt'))
+        f.writelines(['一行line\n' for i in range(5)])
+
+    def test_appendlines(self):
+        fname = __file__
+        f = File(os.path.join(os.path.split(fname)[0], 'data/test.txt'))
+        f.appendlines(['新行line\n' for i in range(5)])
+
+    def test_readlines(self):
+        f = File(File.join(self.getcwd(), 'data/test.txt'))
+        for l in f.readlines():
+            print(l.strip())
 
 if __name__ == '__main__':
     unittest.main()

@@ -22,6 +22,10 @@ class File(object):
         if not self.isdir:
             raise ValueError('Only dir is supported for this operation.')
 
+    def file_required(self):
+        if not self.isfile:
+            raise ValueError('Only file is supported for this operation.')
+
     @staticmethod
     def join(path, *paths):
         return os.path.join(path, *paths)
@@ -74,10 +78,25 @@ class File(object):
         else:
             os.remove(self.abspath)
 
-    # writetext
-    # readtext
-    # write
-    # read
+    def write(self, s, mode='w', encoding='utf-8'):
+        with open(self.abspath, mode=mode, encoding=encoding) as f:
+            f.write(s)
+
+    def writelines(self, lines, mode='w', encoding='utf-8'):
+        with open(self.abspath, mode=mode, encoding=encoding) as f:
+            f.writelines(lines)
+
+    def append(self, s):
+        self.write(s, 'a')
+
+    def appendlines(self, lines):
+        self.writelines(lines, 'a')
+
+    def readlines(self, mode='r', encoding='utf-8'):
+        with open(self.abspath, mode, encoding=encoding) as f:
+            for line in f:
+                yield line
+
     # read json
     # write json
     # pickle?
@@ -85,9 +104,3 @@ class File(object):
 
     # move to
     # iterable
-
-    def delete(self, force=True, recursively=False):
-        pass
-
-    def create(self):
-        pass
