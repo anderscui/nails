@@ -89,3 +89,4 @@ ENV/
 .ropeproject
 
 .idea/*.*
+.idea/inspectionProfiles/Project_Default.xml

@@ -29,8 +29,3 @@ def path_leaf(path):
         return parts[-1]
     else:
         return os.path.basename(path)
-
-
-def list_files(directory, pattern=None):
-    wd = os.path.realpath(directory)
-    return glob.glob(os.path.join(wd, pattern))

@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from setuptools import setup, find_packages
+from setuptools import setup
 import codecs
 import os
 
@@ -13,7 +13,8 @@ def get_version(version_tuple):
 
     return '.'.join(map(str, version_tuple))
 
-init = os.path.join(here, '__init__.py')
+
+init = os.path.join(here, 'nails', '__init__.py')
 version_line = list(filter(lambda l: l.startswith('VERSION'), open(init)))[0]
 VERSION = get_version(eval(version_line.split('=')[-1]))
 
@@ -24,10 +25,10 @@ with codecs.open(os.path.join(here, 'README.md'), 'r', encoding='utf-8') as f:
 setup(
     name='nails',
     version='0.0.1',
-    description='common tools by Anders Cui',
+    description='common tools in Python',
     long_description=long_description,
 
-    packages=find_packages(),
+    packages=['nails'],
 
     author='Anders Cui',
     author_email='anderscui@gmail.com',
@@ -42,6 +43,8 @@ setup(
     ],
     install_requires=[
     ],
+    package_dir={'nails': 'nails'},
+    package_data={'nails': ['*.*']}
 )
 
 # build: python setup.py bdist_wheel --universal
