@@ -9,6 +9,20 @@ class ElementNotFound(ValueError):
         # self.args = {msg}
 
 
+class DuplicateError(ValueError):
+    """Raised when duplicate value is added to a distinctdict"""
+
+
+class distinctdict(dict):
+    """Dictionry that does not accept duplicate values."""
+    def __setitem__(self, key, value):
+        if value in self.values():
+            if (key in self and self[key] != value) or key not in self:
+                raise DuplicateError('This value already exists for diff key')
+
+        super().__setitem__(key, value)
+
+
 def index_of(iterator, pred):
     for i, elem in enumerate(iterator):
         if pred(elem):
@@ -23,12 +37,20 @@ def find_next(iterator, pred, default=None):
     return default
 
 
-def show_counter(counter, ordered_by_key=True):
-    if ordered_by_key:
-        keys = sorted(counter.keys())
-        for k in keys:
-            print('{0}: {1}'.format(k, counter[k]))
-    else:
-        for k in counter.most_common():
-            print('{0}: {1}'.format(k[0], k[1]))
-    print('')
+def all(iterable, pred):
+    return all(pred(item) for item in iterable)
+
+
+def any(iterable, pred):
+    return any(pred(item) for item in iterable)
+
+
+def next(iterable, pred, default=None):
+    for item in iterable:
+        if pred(item):
+            return item
+    return default
+
+
+def count(iterable, pred):
+    return sum([1 if pred(item) else 0 for item in iterable])
