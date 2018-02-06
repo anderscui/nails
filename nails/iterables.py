@@ -1,6 +1,8 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+from operator import itemgetter
+
 
 class ElementNotFound(ValueError):
 
@@ -54,3 +56,11 @@ def next(iterable, pred, default=None):
 
 def count(iterable, pred):
     return sum([1 if pred(item) else 0 for item in iterable])
+
+
+fst = itemgetter(0)
+snd = itemgetter(1)
+
+
+def nth(n):
+    return itemgetter(n-1)

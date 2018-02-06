@@ -1,11 +1,8 @@
 # coding=utf-8
-from __future__ import unicode_literals
-
-import unittest
 from collections import defaultdict
 
 from tests.BaseTestCase import BaseTestCase
-from nails.iterables import find_next, index_of
+from nails.iterables import find_next, index_of, fst, snd, nth
 
 
 class TestIterables(BaseTestCase):
@@ -64,6 +61,8 @@ class TestIterables(BaseTestCase):
         i = index_of(strs, lambda s: s.startswith('w'))
         self.assertEqual(i, -1)
 
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_nth(self):
+        nums = range(1, 10)
+        self.assertEqual(fst(nums), 1)
+        self.assertEqual(snd(nums), 2)
+        self.assertEqual(nth(5)(nums), 5)
