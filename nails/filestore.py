@@ -1,6 +1,4 @@
 # coding=utf-8
-from __future__ import unicode_literals
-
 import json
 import pickle
 
@@ -19,6 +17,12 @@ def json_load(path, mode='r', encoding='utf-8'):
 
 def json_loads(s, encoding='utf-8'):
     return json.loads(s, encoding=encoding)
+
+
+def read_lines(file):
+    with open(file) as f:
+        for l in f:
+            yield l
 
 
 # TODO: pickle

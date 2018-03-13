@@ -1,6 +1,4 @@
 # coding=utf-8
-from __future__ import unicode_literals
-
 import sys
 
 PY2 = sys.version_info[0] == 2
