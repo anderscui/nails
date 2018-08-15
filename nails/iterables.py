@@ -62,3 +62,19 @@ snd = itemgetter(1)
 
 def nth(n):
     return itemgetter(n-1)
+
+
+def slices_of(iterable, pred, map_to=None):
+    map_to = (lambda x: x) if map_to is None else map_to
+    result = []
+    cur = []
+    for i in iterable:
+        if pred(i):
+            cur.append(map_to(i))
+        else:
+            if cur:
+                result.append(cur)
+                cur = []
+    if cur:
+        result.append(cur)
+    return result

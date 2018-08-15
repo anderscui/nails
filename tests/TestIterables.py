@@ -2,7 +2,7 @@
 from collections import defaultdict
 
 from tests.BaseTestCase import BaseTestCase
-from nails.iterables import find_next, index_of, fst, snd, nth
+from nails.iterables import find_next, index_of, fst, snd, nth, slices_of
 
 
 class TestIterables(BaseTestCase):
@@ -66,3 +66,13 @@ class TestIterables(BaseTestCase):
         self.assertEqual(fst(nums), 1)
         self.assertEqual(snd(nums), 2)
         self.assertEqual(nth(5)(nums), 5)
+
+    def test_slices_of(self):
+        l = [1, 1, 2, 2, 3, 5, 7, 10, 11]
+        evens = slices_of(l, lambda i: i % 2 == 0)
+        print(evens)
+        self.assertEqual(len(evens), 2, '2 slices of evens')
+
+        odds = slices_of(l, lambda i: i % 2 == 1, map_to=lambda x: x**2)
+        print(odds)
+        self.assertEqual(len(odds), 3, '3 slices of odds')
